@@ -142,36 +142,54 @@ p {
 /* Header */
 header {
     background-color: white;
-    padding: 20px 0; /* Increased padding to give more space */
+    padding: 20px 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
 nav {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* This is key for vertical alignment */
-    height: 40px; /* Increased height to match visual requirements */
+    align-items: center;
+    height: 40px;
 }
 
 .logo {
     display: flex;
     align-items: center;
     text-decoration: none;
+    z-index: 101; /* Ensure logo stays above mobile menu */
 }
 
 .logo img {
-    height: 35px; /* Adjusted based on your screenshot */
+    height: 35px;
     width: auto;
     display: block;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--onyx-black);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.nav-wrapper {
+    display: flex;
+    align-items: center;
 }
 
 .nav-links {
@@ -179,8 +197,8 @@ nav {
     list-style: none;
     align-items: center;
     height: 100%;
-    margin: 0; /* Reset any default margins */
-    padding: 0; /* Reset any default padding */
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links li {
@@ -217,17 +235,16 @@ nav {
     font-weight: 400;
 }
 
-/* Make the arrow slightly smaller */
 .dropdown-arrow {
-    font-size: 0.5rem; /* Reduced from 0.6rem */
+    font-size: 0.5rem;
     margin-left: 0.3rem;
 }
 
-/* Ensure only language options turn blue on hover, not the toggle itself */
 .language-toggle:hover {
-    color: inherit; /* Prevents color change on hover */
+    color: inherit;
 }
 
+/* Language Dropdown (Desktop) - Restore styling and fix hover gap */
 .language-dropdown {
     position: absolute;
     top: 100%;
@@ -235,62 +252,163 @@ nav {
     transform: translateX(-50%);
     background-color: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border-radius: 4px;
+    border-radius: 16px;
     list-style: none;
     padding: 0;
     margin-top: 8px;
-    width: 130px;
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
     display: none;
     z-index: 100;
     overflow: hidden;
+    border: none;
 }
-
-/* Fix the disappearing menu issue with pseudo-element */
+.language-selector:hover .language-dropdown,
+.language-selector:focus-within .language-dropdown {
+    display: block;
+}
 .language-selector::after {
     content: '';
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-    height: 20px; /* Height of invisible bridge */
+    height: 18px; /* Height of invisible bridge */
     background: transparent;
+    z-index: 99;
 }
-
-.language-selector:hover .language-dropdown {
-    display: block;
-}
-
 .language-dropdown li {
     margin: 0;
     padding: 0;
-    width: 100%;
     border-bottom: 1px solid #f0f0f0;
 }
-
 .language-dropdown li:last-child {
     border-bottom: none;
 }
-
 .language-dropdown li a {
     display: block;
     width: 100%;
-    padding: 8px 12px;
-    text-decoration: none;
+    padding: 10px 0;
     color: var(--onyx-black);
-    transition: all 0.2s ease;
-    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s, font-weight 0.18s;
+    font-size: 1.05rem;
     text-align: center;
+    background: none;
+    font-weight: 400;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
 }
-
 .language-dropdown li a:hover,
+.language-dropdown li a:focus,
 .language-dropdown li a.active {
-    background-color: #f5f5f5;
-    color: var(--spring-blue);
+    background-color: #ece9ef;
+    color: var(--onyx-black);
+    font-weight: 700;
 }
 
-.language-dropdown li a.active {
-    background-color: #f0f0f0;
-    font-weight: 500;
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .nav-wrapper {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: white;
+        padding: 80px 20px 20px;
+        transition: right 0.3s ease;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-wrapper.active {
+        right: 0;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+
+    .nav-links li {
+        margin: 0;
+        width: 100%;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--platinum-silver);
+    }
+
+    .nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-links a {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .language-selector {
+        width: 100%;
+    }
+
+    /* Show dropdown when .active is set (for mobile tap) */
+    .language-dropdown {
+        display: none !important;
+    }
+    .language-selector::after {
+        display: none;
+    }
+
+    /* Rotate caret when open */
+    .language-selector.active .dropdown-arrow {
+        transform: rotate(180deg);
+        transition: transform 0.2s;
+    }
+
+    /* Hamburger Menu Animation */
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* HERO SECTION: Stack and full width image */
+    .hero-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .hero-text {
+        width: 100%;
+    }
+    .hero-image {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        box-shadow: none;
+        border-radius: 8px;
+    }
+    .hero-image img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: 350px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    .hero h1 {
+        font-size: 2.2rem;
+    }
 }
 
 /* Hero Section */
@@ -712,29 +830,6 @@ footer {
     }
 }
 
-@media (max-width: 768px) {
-    :root {
-        --section-padding: 3rem;
-    }
-    
-    .hero-content {
-        flex-direction: column;
-    }
-    
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-    
-    .charm-circle {
-        margin: 0 10px;
-    }
-}
-
 @media (max-width: 576px) {
     :root {
         --section-padding: 2.5rem;
@@ -756,5 +851,92 @@ footer {
         100% {
             transform: translateX(calc(-120px * 4 - 30px * 4));
         }
+    }
+}
+
+/* Language Modal Styles */
+.language-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.35);
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.2s;
+}
+.language-modal.active {
+    display: flex;
+}
+.language-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 95vw;
+    width: 350px;
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    position: relative;
+    text-align: center;
+    animation: fadeInModal 0.2s;
+}
+@keyframes fadeInModal {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.language-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--onyx-black);
+    cursor: pointer;
+    line-height: 1;
+}
+.language-modal-content h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--onyx-black);
+}
+.language-modal-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 55vh;
+    overflow-y: auto;
+}
+.language-modal-list li {
+    margin-bottom: 0.5rem;
+}
+.language-modal-list li:last-child {
+    margin-bottom: 0;
+}
+.language-modal-list a {
+    display: block;
+    padding: 0.7rem 0;
+    border-radius: 6px;
+    color: var(--onyx-black);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 400;
+    background: none;
+    transition: background 0.2s, color 0.2s;
+}
+.language-modal-list a.active,
+.language-modal-list a:hover {
+    background: var(--platinum-silver);
+    color: var(--onyx-black);
+    font-weight: 700;
+}
+
+/* Hide modal on desktop */
+@media (min-width: 769px) {
+    .language-modal {
+        display: none !important;
     }
 }

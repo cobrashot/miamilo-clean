@@ -235,14 +235,17 @@ nav {
     transform: translateX(-50%);
     background-color: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border-radius: 4px;
+    border-radius: 16px;
     list-style: none;
     padding: 0;
     margin-top: 8px;
-    width: 130px;
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
     display: none;
     z-index: 100;
     overflow: hidden;
+    border: none;
 }
 
 /* Fix the disappearing menu issue with pseudo-element */
@@ -263,7 +266,6 @@ nav {
 .language-dropdown li {
     margin: 0;
     padding: 0;
-    width: 100%;
     border-bottom: 1px solid #f0f0f0;
 }
 
@@ -274,23 +276,122 @@ nav {
 .language-dropdown li a {
     display: block;
     width: 100%;
-    padding: 8px 12px;
-    text-decoration: none;
+    padding: 10px 0;
     color: var(--onyx-black);
-    transition: all 0.2s ease;
-    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s, font-weight 0.18s;
+    font-size: 1.05rem;
     text-align: center;
+    background: none;
+    font-weight: 400;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
 }
 
 .language-dropdown li a:hover,
+.language-dropdown li a:focus,
 .language-dropdown li a.active {
-    background-color: #f5f5f5;
-    color: var(--spring-blue);
+    background-color: #ece9ef;
+    color: var(--onyx-black);
+    font-weight: 700;
 }
 
-.language-dropdown li a.active {
-    background-color: #f0f0f0;
-    font-weight: 500;
+/* Language Modal Styles */
+.language-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.35);
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.2s;
+}
+.language-modal.active {
+    display: flex;
+}
+.language-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 95vw;
+    width: 350px;
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    position: relative;
+    text-align: center;
+    animation: fadeInModal 0.2s;
+}
+@keyframes fadeInModal {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.language-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--onyx-black);
+    cursor: pointer;
+    line-height: 1;
+}
+.language-modal-content h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--onyx-black);
+}
+.language-modal-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 55vh;
+    overflow-y: auto;
+}
+.language-modal-list li {
+    margin-bottom: 0.5rem;
+}
+.language-modal-list li:last-child {
+    margin-bottom: 0;
+}
+.language-modal-list a {
+    display: block;
+    padding: 0.7rem 0;
+    border-radius: 6px;
+    color: var(--onyx-black);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 400;
+    background: none;
+    transition: background 0.2s, color 0.2s;
+}
+.language-modal-list a.active,
+.language-modal-list a:hover {
+    background: var(--platinum-silver);
+    color: var(--onyx-black);
+    font-weight: 700;
+}
+
+/* Hide modal on desktop */
+@media (min-width: 769px) {
+    .language-modal {
+        display: none !important;
+    }
+}
+
+/* Only show modal on mobile, hide dropdown */
+@media (max-width: 768px) {
+    .language-dropdown {
+        display: none !important;
+    }
+    .language-selector::after {
+        display: none;
+    }
 }
 
 /* Hero Section */
