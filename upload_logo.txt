@@ -1,0 +1,3 @@
+cd /var/www/images/logos
+put src/images/logos/logo_horizontal.svg logo_horizontal.svg
+bye

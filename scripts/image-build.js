@@ -1,0 +1,361 @@
+const fs = require('fs');
+const path = require('path');
+const readline = require('readline');
+
+// Get the project root directory (one level up from scripts directory)
+const scriptDir = __dirname;
+const projectRoot = path.resolve(scriptDir, '..');
+
+// Function to dynamically discover image categories
+function getImageCategories() {
+  const imagesDir = path.join(projectRoot, 'src/images');
+  if (!fs.existsSync(imagesDir)) {
+    console.warn('Warning: images directory not found in source');
+    return [];
+  }
+  
+  return fs.readdirSync(imagesDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+}
+
+// Get image categories for path replacements
+const imageCategories = getImageCategories();
+console.log('Detected image categories:', imageCategories);
+
+// Generate replacements dynamically based on discovered categories
+const replacements = [];
+imageCategories.forEach(category => {
+  // HTML image path replacements (from proposals)
+  replacements.push({
+    regex: new RegExp(`src=["']\\.\\.\\/images\\/${category}\\/(.*?)["']`, 'g'),
+    replacement: `src="/images/${category}/$1"`
+  });
+  
+  // CSS image path replacements
+  replacements.push({
+    regex: new RegExp(`url\\(['"]?\\.\\.\\/\\.\\.\\/images\\/${category}\\/(.*?)['"]?\\)`, 'g'),
+    replacement: `url('/images/${category}/$1')`
+  });
+
+  // Handle root-level image references
+  replacements.push({
+    regex: new RegExp(`src=["']images\\/${category}\\/(.*?)["']`, 'g'),
+    replacement: `src="/images/${category}/$1"`
+  });
+});
+
+// Configuration with absolute paths
+const config = {
+  // Source & output directories with absolute paths
+  sourceDir: path.join(projectRoot, 'src'),
+  outputDir: path.join(projectRoot, 'public'),
+  
+  // Path replacements for production mode
+  replacements: replacements
+};
+
+// Debug information
+console.log('MiaMilo Designs Build Utility');
+console.log('===========================');
+console.log('Script location:', scriptDir);
+console.log('Project root:', projectRoot);
+console.log('Source directory:', config.sourceDir);
+console.log('Output directory:', config.outputDir);
+console.log('Image categories:', imageCategories.join(', '));
+console.log('===========================\n');
+
+// Helper function to process a file
+function processFile(filePath, outputPath) {
+  try {
+    // Read the source file
+    let content = fs.readFileSync(filePath, 'utf8');
+    
+    // Check if the output file already exists
+    let isUpdated = false;
+    const fileExists = fs.existsSync(outputPath);
+    let oldContent = '';
+    
+    if (fileExists) {
+      oldContent = fs.readFileSync(outputPath, 'utf8');
+    }
+    
+    // Process HTML, CSS, and JS files
+    const ext = path.extname(filePath).toLowerCase();
+    if (['.html', '.css', '.js'].includes(ext)) {
+      // Apply replacements for production
+      config.replacements.forEach(({ regex, replacement }) => {
+        content = content.replace(regex, replacement);
+      });
+    }
+    
+    // Create output directory if it doesn't exist
+    const outputDir = path.dirname(outputPath);
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+    
+    // Check if content has changed or file doesn't exist
+    if (!fileExists || content !== oldContent) {
+      // Write the processed file
+      fs.writeFileSync(outputPath, content);
+      if (fileExists) {
+        console.log(`Updated: ${filePath} -> ${outputPath}`);
+      } else {
+        console.log(`Created: ${filePath} -> ${outputPath}`);
+      }
+    } else {
+      console.log(`Skipped (unchanged): ${filePath}`);
+    }
+  } catch (error) {
+    console.error(`Error processing file ${filePath}:`, error.message);
+  }
+}
+
+// Helper function to copy directory recursively
+function copyDir(src, dest, excludeImages = false) {
+  try {
+    // Skip if source doesn't exist
+    if (!fs.existsSync(src)) {
+      console.log(`Warning: Source directory ${src} does not exist. Skipping.`);
+      return;
+    }
+    
+    // Create destination directory if it doesn't exist
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest, { recursive: true });
+    }
+    
+    // Get all files and directories in the source directory
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+    
+    for (const entry of entries) {
+      const srcPath = path.join(src, entry.name);
+      const destPath = path.join(dest, entry.name);
+      
+      // Skip the images directory if specified
+      if (excludeImages && entry.name === 'images') {
+        console.log(`Skipping images directory (will be handled separately): ${srcPath}`);
+        continue;
+      }
+      
+      if (entry.isDirectory()) {
+        // Recursively copy subdirectories
+        copyDir(srcPath, destPath, excludeImages);
+      } else {
+        // Process files
+        processFile(srcPath, destPath);
+      }
+    }
+  } catch (error) {
+    console.error(`Error copying directory ${src}:`, error.message);
+  }
+}
+
+// Create the nginx.conf file
+function createDeploymentFiles() {
+  const nginxConfig = `server {
+    listen 80;
+    server_name _;
+    
+    # Root for website files
+    root /usr/share/nginx/html;
+    index index.html;
+    
+    # Disable caching for HTML files to prevent stale content
+    location ~ \\.html$ {
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+        add_header Pragma "no-cache";
+        add_header Expires "0";
+        try_files $uri $uri/ =404;
+    }
+    
+    # Main website routing
+    location / {
+        try_files $uri $uri/ $uri/index.html =404;
+    }
+    
+    # Serve images from the persistent volume with their structure
+    location /images/ {
+        alias /var/www/images/;
+        expires 7d;
+        add_header Cache-Control "public, max-age=604800";
+        try_files $uri =404;
+    }
+    
+    # Handle CSS and JS with shorter caching
+    location ~ \\.(css|js)$ {
+        expires 1d;
+        add_header Cache-Control "public, max-age=86400";
+        try_files $uri =404;
+    }
+  }`;
+
+  // Write nginx.conf to the output directory
+  fs.writeFileSync(path.join(config.outputDir, 'nginx.conf'), nginxConfig);
+  console.log('Created nginx.conf in output directory');
+
+  // Create the Dockerfile
+  let dockerfileContent = `FROM nginx:alpine
+
+# Copy website files
+COPY . /usr/share/nginx/html/
+
+# Create directory structure for images in the persistent volume
+`;
+
+  // Add mkdir commands for each image category
+  imageCategories.forEach(category => {
+    dockerfileContent += `RUN mkdir -p /var/www/images/${category}\n`;
+  });
+
+  dockerfileContent += `
+# Configure nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]`;
+
+  // Write the Dockerfile
+  fs.writeFileSync(path.join(config.outputDir, 'Dockerfile'), dockerfileContent);
+  console.log('Created Dockerfile in output directory');
+
+  // Create the fly.toml file
+  const flyTomlContent = `app = "miamilo-designs"
+primary_region = "sea"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[[mounts]]
+  source = "image_storage"
+  destination = "/var/www/images"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 80
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1`;
+
+  // Write the fly.toml file
+  fs.writeFileSync(path.join(config.outputDir, 'fly.toml'), flyTomlContent);
+  console.log('Created fly.toml in output directory');
+}
+
+// Main build function
+async function buildProject() {
+  // Check if output directory exists and handle appropriately
+  if (fs.existsSync(config.outputDir)) {
+    console.log(`Output directory ${config.outputDir} already exists.`);
+    
+    // Create a readline interface for prompting
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+    
+    // Ask if we should clear it first
+    const answer = await new Promise(resolve => {
+      rl.question('Do you want to clear the existing output directory? (y/n): ', resolve);
+    });
+    
+    rl.close();
+    
+    if (answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes') {
+      console.log(`Clearing directory: ${config.outputDir}`);
+      // Remove all files but keep the directory
+      const files = fs.readdirSync(config.outputDir);
+      for (const file of files) {
+        const curPath = path.join(config.outputDir, file);
+        if (fs.lstatSync(curPath).isDirectory()) {
+          // Recursively remove directory contents
+          fs.rmSync(curPath, { recursive: true, force: true });
+        } else {
+          // Remove file
+          fs.unlinkSync(curPath);
+        }
+      }
+      console.log(`Directory cleared successfully.`);
+    } else {
+      console.log(`Keeping existing files. New files will overwrite existing ones with the same name.`);
+    }
+  } else {
+    // Create the output directory if it doesn't exist
+    fs.mkdirSync(config.outputDir, { recursive: true });
+    console.log(`Created output directory: ${config.outputDir}`);
+  }
+  
+  // Get all entries in the source directory
+  if (!fs.existsSync(config.sourceDir)) {
+    console.error(`Error: Source directory ${config.sourceDir} does not exist.`);
+    return;
+  }
+  
+  const srcEntries = fs.readdirSync(config.sourceDir, { withFileTypes: true });
+  
+  // ALWAYS process index.html if it exists (never auto-generate)
+  const indexFile = path.join(config.sourceDir, 'index.html');
+  const outputIndexFile = path.join(config.outputDir, 'index.html');
+  if (fs.existsSync(indexFile)) {
+    console.log('Processing main index.html file...');
+    processFile(indexFile, outputIndexFile);
+  } else {
+    console.log('WARNING: No index.html found in the source directory!');
+    console.log('You should create one to serve as your main landing page.');
+  }
+
+  // Process all proposal directories (proposal1, proposal2, proposal3, etc.)
+  const proposalDirs = srcEntries.filter(entry => 
+    entry.isDirectory() && entry.name.startsWith('proposal')
+  );
+  
+  console.log(`Found ${proposalDirs.length} proposal directories to process:`);
+  for (const entry of proposalDirs) {
+    console.log(`- ${entry.name}`);
+    const srcDir = path.join(config.sourceDir, entry.name);
+    const destDir = path.join(config.outputDir, entry.name);
+    copyDir(srcDir, destDir);
+  }
+
+  // Process shared directory if it exists
+  const sharedDir = path.join(config.sourceDir, 'shared');
+  if (fs.existsSync(sharedDir)) {
+    console.log('Processing shared directory');
+    copyDir(sharedDir, path.join(config.outputDir, 'shared'));
+  } else {
+    console.log('No shared directory found, skipping');
+  }
+
+  // Create deployment files
+  createDeploymentFiles();
+
+  console.log('\nBuild completed successfully!');
+  console.log(`Next steps:
+  1. cd ${config.outputDir}
+  2. fly volumes create image_storage --size 1 --app miamilo-designs (if not already created)
+  3. fly deploy -a miamilo-designs
+  4. Run the image upload script to deploy images`);
+}
+
+// Start the build process
+buildProject().catch(error => {
+  console.error('Build failed:', error);
+});

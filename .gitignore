@@ -1,0 +1,19 @@
+# Add common exclusions to the file
+echo "# System files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build files
+/dist
+/build
+/public
+
+# Dependency directories
+/node_modules
+/vendor" > .gitignore

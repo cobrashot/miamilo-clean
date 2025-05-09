@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiaMilo - Premium Custom Pet Accessories</title>
+    <style>
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+        
+        /* Brand Colors */
+        :root {
+            /* Primary Colors */
+            --modern-taupe: #C5B9AC;
+            --platinum-silver: #E5E1E6;
+            --onyx-black: #222223;
+            
+            /* Secondary Colors */
+            --spring-blue: #77C5D5;
+            --persimmon: #FC4C02;
+            --pear: #D2D755;
+            
+            /* Color Story Colors */
+            --oak-barrel: #7b593e;
+            --almond-white: #f8f2e6;
+            --ebony-black: #3d3e42;
+            --pewter-grey: #908778;
+            --iced-coffee: #b0956a;
+            --royal-brown: #503e3c;
+            --ember-orange: #ea6a1a;
+            --vermilion-red: #953a37;
+            --fuchsia-pink: #da1983;
+            --plum-wine: #98517d;
+            --ocean-blue: #0092b6;
+            --stormy-sea: #4a6578;
+            --midori-green: #3c7049;
+            --rebel-red: #cd3e31;
+        }
+        
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--onyx-black);
+            background-color: white;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--onyx-black);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #000000;
+        }
+        
+        .btn-secondary {
+            background-color: var(--platinum-silver);
+            color: var(--onyx-black);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d5d1d6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Announcement Bar */
+        .announcement-bar {
+            background-color: var(--modern-taupe);
+            color: white;
+            text-align: center;
+            padding: 0.7rem 0;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .announcement-bar p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--onyx-black);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--onyx-black);
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--persimmon);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: white;
+            padding: 4rem 0;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero h1 {
+            color: var(--onyx-black);
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            font-size: 3.5rem;
+        }
+        
+        .hero-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 500px;
+            object-fit: cover;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .hero-tagline {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        /* Featured In Section */
+        .featured-in {
+            padding: 2rem 0;
+            background-color: white;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .featured-in h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--onyx-black);
+        }
+        
+        .media-logos {
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .logo-scroller {
+            display: flex;
+            animation: scroll 20s linear infinite;
+            width: calc(150px * 8);
+        }
+        
+        .media-logo {
+            width: 150px;
+            height: 60px;
+            margin: 0 25px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .media-logo:hover {
+            opacity: 1;
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-150px * 4 - 50px * 4));
+            }
+        }
+        
+        /* Color Story Section - Simplified Horizontal Scroll */
+        .color-story {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .color-scroll-container {
+            position: relative;
+            width: 100%;
+            padding: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-arrow:hover {
+            background-color: var(--platinum-silver);
+        }
+        
+        .scroll-left {
+            left: 0;
+        }
+        
+        .scroll-right {
+            right: 0;
+        }
+        
+        .color-scroll {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        
+        .color-scroll::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
+        .color-combo {
+            flex: 0 0 auto;
+            width: 280px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .color-combo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .combo-colors {
+            height: 140px;
+            display: flex;
+        }
+        
+        .color-primary, .color-secondary {
+            flex: 1;
+            height: 100%;
+        }
+        
+        .combo-info {
+            padding: 1.5rem;
+            background-color: white;
+            text-align: center;
+        }
+        
+        .combo-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .combo-description {
+            font-size: 0.9rem;
+            color: var(--onyx-black);
+            margin-bottom: 1rem;
+        }
+        
+        .color-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        /* Color Grid (original style, can be removed if unused) */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .color-card {
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .color-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .color-sample {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .color-info {
+            padding: 1.5rem;
+            background-color: white;
+            text-align: center;
+        }
+        
+        .color-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .color-description {
+            font-size: 0.9rem;
+            color: var(--onyx-black);
+            margin-bottom: 0;
+        }
+        
+        /* In The Wild Section */
+        .in-the-wild {
+            padding: 5rem 0;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .gallery-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-content {
+            padding: 1.5rem;
+        }
+        
+        .gallery-quote {
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--onyx-black);
+        }
+        
+        .gallery-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Charm Categories Section */
+        .charm-categories {
+            padding: 5rem 0;
+            background-color: var(--platinum-silver);
+        }
+        
+        .charm-showcase {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .charm-scroller-container {
+            width: 100%;
+            overflow: hidden;
+            margin: 0 auto 2rem;
+            padding: 1rem 0;
+        }
+        
+        .charm-scroller {
+            display: flex;
+            animation: scrollCharms 60s linear infinite;
+            width: calc(80px * 60 + 30px * 60);
+        }
+        
+        .charm-circle {
+            flex: 0 0 auto;
+            width: 80px;
+            height: 80px;
+            margin: 0 15px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes scrollCharms {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-80px * 30 - 30px * 30));
+            }
+        }
+        
+        .charm-cta {
+            text-align: center;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: var(--modern-taupe);
+            color: white;
+            padding: 5rem 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            height: 400px;
+            background-color: var(--platinum-silver);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--onyx-black);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .footer-column h4 {
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--platinum-silver);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--platinum-silver);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-pairs {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .color-pairs {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .media-logo {
+                width: 120px;
+                margin: 0 15px;
+            }
+            
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-120px * 4 - 30px * 4));
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="container">
+            <p>🇺🇸 Shipping to you via FedEx from Los Angeles! 🇺🇸</p>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <img src="https://cdn.miamilo.com/assets/logo_horizontal.svg" alt="MiaMilo" height="40">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">DesignStudio</a></li>
+                    <li><a href="#">Collars</a></li>
+                    <li><a href="#">Leashes</a></li>
+                    <li><a href="#">Charms</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Custom Collars, Extraordinary Dogs</h1>
+                    <p class="hero-tagline">Full-grain leather, crafted with care</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary">Design Your Own</a>
+                        <a href="#" class="btn btn-secondary">Explore Collections</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images-purple-violet-1214.fly.dev/Luxe_Metro_Fox_Collar_Leash_Outdoor-02.jpg" alt="Stylish dog wearing MiaMilo collar in premium home environment" />
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured In Section -->
+    <section class="featured-in">
+        <div class="container">
+            <h3>As seen in:</h3>
+            <div class="media-logos">
+                <div class="logo-scroller">
+                    <div class="media-logo"><img src="https://images-purple-violet-1214.fly.dev/Petful.png" alt="Petful" /></div>
+                    <div class="media-logo"><img src="https://images-purple-violet-1214.fly.dev/Modern-Dog.png" alt="Modern Dog Magazine" /></div>
+                    <div class="media-logo"><img src="https://images-purple-violet-1214.fly.dev/K9.png" alt="K9 Magazine" /></div>
+                    <div class="media-logo"><img src="https://images-purple-violet-1214.fly.dev/Dogue.png" alt="Dogue" /></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Color Story Section - Simplified Horizontal Scroll -->
+    <section class="color-story">
+        <div class="container">
+            <div class="section-header">
+                <h2>Premium Color Combinations</h2>
+                <p>Discover our most popular leather color pairings for distinctive pet accessories</p>
+            </div>
+            
+            <div class="color-scroll-container">
+                <div class="scroll-arrow scroll-left" onclick="scrollColors('left')">←</div>
+                <div class="color-scroll">
+                    <!-- Sunset Stroll -->
+                    <div class="color-combo">
+                        <div class="combo-colors">
+                            <div class="color-primary" style="background-color: var(--ember-orange);"></div>
+                            <div class="color-secondary" style="background-color: var(--vermilion-red);"></div>
+                        </div>
+                        <div class="combo-info">
+                            <h4 class="combo-name">Sunset Stroll</h4>
+                            <p class="combo-description">Warm, fiery tones inspired by dramatic evening skies</p>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Berry Luxe -->
+                    <div class="color-combo">
+                        <div class="combo-colors">
+                            <div class="color-primary" style="background-color: var(--fuchsia-pink);"></div>
+                            <div class="color-secondary" style="background-color: var(--plum-wine);"></div>
+                        </div>
+                        <div class="combo-info">
+                            <h4 class="combo-name">Berry Luxe</h4>
+                            <p class="combo-description">Rich, vibrant berry tones for a luxurious pop of color</p>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Ocean Depths -->
+                    <div class="color-combo">
+                        <div class="combo-colors">
+                            <div class="color-primary" style="background-color: var(--ocean-blue);"></div>
+                            <div class="color-secondary" style="background-color: var(--stormy-sea);"></div>
+                        </div>
+                        <div class="combo-info">
+                            <h4 class="combo-name">Ocean Depths</h4>
+                            <p class="combo-description">Striking blue tones inspired by the varying depths of the sea</p>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Forest Trail -->
+                    <div class="color-combo">
+                        <div class="combo-colors">
+                            <div class="color-primary" style="background-color: var(--midori-green);"></div>
+                            <div class="color-secondary" style="background-color: var(--iced-coffee);"></div>
+                        </div>
+                        <div class="combo-info">
+                            <h4 class="combo-name">Forest Trail</h4>
+                            <p class="combo-description">Earthy greens and browns reminiscent of woodland walks</p>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Metropolitan -->
+                    <div class="color-combo">
+                        <div class="combo-colors">
+                            <div class="color-primary" style="background-color: var(--ebony-black);"></div>
+                            <div class="color-secondary" style="background-color: var(--pewter-grey);"></div>
+                        </div>
+                        <div class="combo-info">
+                            <h4 class="combo-name">Metropolitan</h4>
+                            <p class="combo-description">Urban sophistication with subtle contrast for the modern pet</p>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Natural Elegance -->
+                    <div class="color-combo">
+                        <div class="combo-colors">
+                            <div class="color-primary" style="background-color: var(--iced-coffee);"></div>
+                            <div class="color-secondary" style="background-color: var(--royal-brown);"></div>
+                        </div>
+                        <div class="combo-info">
+                            <h4 class="combo-name">Natural Elegance</h4>
+                            <p class="combo-description">Warm neutrals that complement both light and dark fur colors</p>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-arrow scroll-right" onclick="scrollColors('right')">→</div>
+            </div>
+            
+            <div class="color-cta">
+                <a href="#" class="btn btn-primary">Create Your Custom Combination</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- JavaScript for Horizontal Scroll -->
+    <script>
+        function scrollColors(direction) {
+            const container = document.querySelector('.color-scroll');
+            const scrollAmount = 300;
+            
+            if (direction === 'left') {
+                container.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else {
+                container.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+    
+    <!-- In The Wild Section - Updated with Real Influencer Testimonials -->
+    <section class="in-the-wild">
+        <div class="container">
+            <div class="section-header">
+                <h2>In the Wild</h2>
+                <p>See how pet parents and influencers showcase their MiaMilo accessories</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Beagle Archie -->
+                <div class="gallery-card">
+                    <div class="gallery-image">
+                        <img src="/api/placeholder/600/400" alt="Beagle Archie wearing MiaMilo collar" />
+                    </div>
+                    <div class="gallery-content">
+                        <p class="gallery-quote">"An absolute gem to find for pawrents who want to have high quality product which is also glamorous. Love that there are different charms to choose from for the personal meaning and lots of amazing colours to finish off the look."</p>
+                        <p class="gallery-author">- Beagle Archie (<a href="https://www.instagram.com/archie_the_beagle_boy_" target="_blank">@archie_the_beagle_boy_</a>)</p>
+                    </div>
+                </div>
+                
+                <!-- Lucy the Sheepadoodle -->
+                <div class="gallery-card">
+                    <div class="gallery-image">
+                        <img src="/api/placeholder/600/400" alt="Lucy the Sheepadoodle with MiaMilo collar" />
+                    </div>
+                    <div class="gallery-content">
+                        <p class="gallery-quote">"Fun and easy to order as so many colors and variations to choose from. You know you will be getting a one of a kind collar/leash. High quality leather and craftsmanship."</p>
+                        <p class="gallery-author">- Lucy the Sheepadoodle (<a href="https://www.instagram.com/lucythesheepadoodle" target="_blank">@lucythesheepadoodle</a>)</p>
+                    </div>
+                </div>
+                
+                <!-- Springagram -->
+                <div class="gallery-card">
+                    <div class="gallery-image">
+                        <img src="/api/placeholder/600/400" alt="Springer Spaniel with MiaMilo collar" />
+                    </div>
+                    <div class="gallery-content">
+                        <p class="gallery-quote">"Beautiful quality product. Great attention to detail. Really easy design process and fun experience."</p>
+                        <p class="gallery-author">- Springagram (<a href="https://www.instagram.com/Springagram" target="_blank">@Springagram</a>)</p>
+                    </div>
+                </div>
+                
+                <!-- Customer 1 -->
+                <div class="gallery-card">
+                    <div class="gallery-image">
+                        <img src="/api/placeholder/600/400" alt="Customer's dog wearing Metropolitan collar" />
+                    </div>
+                    <div class="gallery-content">
+                        <p class="gallery-quote">"After going through countless collars that didn't last, our Metropolitan collar has held up beautifully for over a year of daily hikes and adventures."</p>
+                        <p class="gallery-author">- Sarah & Scout, Colorado</p>
+                    </div>
+                </div>
+                
+                <!-- Customer 2 -->
+                <div class="gallery-card">
+                    <div class="gallery-image">
+                        <img src="/api/placeholder/600/400" alt="Customer's dog with Sunset Stroll collar" />
+                    </div>
+                    <div class="gallery-content">
+                        <p class="gallery-quote">"The customized nameplate charm is so elegant, and the Sunset Stroll leather combination looks stunning against Percy's black fur. Worth every penny!"</p>
+                        <p class="gallery-author">- Jennifer & Percy, New York</p>
+                    </div>
+                </div>
+                
+                <!-- Customer 3 -->
+                <div class="gallery-card">
+                    <div class="gallery-image">
+                        <img src="/api/placeholder/600/400" alt="Customer's dog with Heritage Duo collar" />
+                    </div>
+                    <div class="gallery-content">
+                        <p class="gallery-quote">"We got matching Heritage Duo leash and collar sets for both our Labs. The quality is exceptional, and they still look brand new after months of swimming and outdoor adventures."</p>
+                        <p class="gallery-author">- David & Cooper, Washington</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="color-cta">
+                <a href="#" class="btn btn-primary">Share Your MiaMilo Story</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Charm Categories Section -->
+    <section class="charm-categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>60+ Unique Charms</h2>
+                <p>From birthdays to 'gotcha days,' our charms turn everyday walks into celebrations of your special bond</p>
+            </div>
+            
+            <div class="charm-showcase">
+                <div class="charm-scroller-container">
+                    <div class="charm-scroller">
+                        <!-- First set of charms -->
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        
+                        <!-- Duplicate set to create seamless loop -->
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                        <div class="charm-circle"></div>
+                    </div>
+                </div>
+                
+                <div class="charm-cta">
+                    <a href="#" class="btn btn-primary">Explore Our DesignStudio</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Crafted with Love, Designed for Style</h2>
+                    <p>At MiaMilo, we believe your pet deserves accessories that are as unique as they are. Our story began with a simple vision: to create premium, customizable pet accessories that celebrate the special bond between pets and their owners.</p>
+                    <p>Designed and tested in Germany, each MiaMilo piece combines exceptional craftsmanship with creative expression. We use only the finest materials, including full-grain leather and hypoallergenic zinc-alloy charms, ensuring both style and durability.</p>
+                    <a href="#" class="btn btn-primary">Learn More About Us</a>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://images-purple-violet-1214.fly.dev/about-image.jpg" alt="MiaMilo craftsmanship" />
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <span class="footer-logo">MiaMilo</span>
+                    <p>Premium custom pet accessories as unique as your pet's personality and style.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Collections</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Birthstone Bliss</a></li>
+                        <li><a href="#">Urban Chic</a></li>
+                        <li><a href="#">Cherished Classics</a></li>
+                        <li><a href="#">Globe Trotter</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Customer Care</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Measuring Guide</a></li>
+                        <li><a href="#">Care Instructions</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Connect With Us</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Pinterest</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 MiaMilo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

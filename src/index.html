@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiaMilo Design Proposals</title>
+    <link rel="stylesheet" href="/shared/css/main.css">
+    <style>
+        /* Additional page-specific styles */
+        .proposals-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .proposal-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+        
+        .proposal-card {
+            border: 1px solid var(--platinum-silver);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--onyx-black);
+            background-color: white;
+        }
+        
+        .proposal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        
+        }
+        
+        .proposal-icon {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-off-white);
+        }
+        
+        .proposal-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--modern-taupe);
+        }
+        
+        .proposal-content {
+            padding: 1.5rem;
+        }
+        
+        .proposal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .proposal-description {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .proposal-features {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .proposal-features ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .proposal-features li {
+            margin-bottom: 0.4rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        
+        .proposal-features li:before {
+            content: "•";
+            color: var(--modern-taupe);
+            position: absolute;
+            left: 0;
+        }
+        
+        .proposal-date {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 1rem;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 0.75rem;
+        }
+        
+        .intro-section {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        /* Changed announcement banner to taupe with white text */
+        .dev-banner {
+            background-color: var(--modern-taupe);
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 500;
+            color: white;
+        }
+
+        @media (max-width: 992px) {
+            .proposal-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .proposal-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="announcement-bar">
+        Development Environment - Remote Preview
+    </div>
+    
+    <header>
+        <nav class="container">
+            <a href="/" class="logo">
+                <img src="/images/logos/logo_horizontal.svg" alt="MiaMilo Design">
+            </a>
+            <!-- Additional nav items could go here -->
+        </nav>
+    </header>
+    
+    <main class="proposals-container">
+        <div class="intro-section">
+            <h1>Design Proposals</h1>
+            <p class="hero-tagline">Each version offers slight variations, while following our brand guidelines.</p>
+        </div>
+        
+        <div class="proposal-cards">
+            <a href="/proposal1/index.html" class="proposal-card">
+                <div class="proposal-icon">
+                    <div class="proposal-number">1</div>
+                </div>
+                <div class="proposal-content">
+                    <h3 class="proposal-title">Version One</h3>
+                    <div class="proposal-features">
+                        <ul>
+                            <li>Improved typography, color, and spacing</li>
+                            <li>New "As Seen In" media logos</li>
+                            <li>Leather color combination pairings (we can update with the new leather photos)</li>
+                            <li>Charm scroller with white background circle</li>
+                            <li>4 In the Wild cards</li>
+                        </ul>
+                    </div>
+                    <div class="proposal-date">Updated: May 7, 2025</div>
+                </div>
+            </a>
+            
+            <a href="/proposal2/index.html" class="proposal-card">
+                <div class="proposal-icon">
+                    <div class="proposal-number">2</div>
+                </div>
+                <div class="proposal-content">
+                    <h3 class="proposal-title">Version Two</h3>
+                    <div class="proposal-features">
+                        <ul>
+                            <li>Same updates as version 1, with alternate high-level messaging and hero section</li>
+                            <li>6 In the Wild cards, 3 columns</li>
+                            <li>Additional header and footer photo choices</li>
+                        </ul>
+                    </div>
+                    <div class="proposal-date">Updated: May 8, 2025</div>
+                </div>
+            </a>
+            
+            <a href="/proposal3/index.html" class="proposal-card">
+                <div class="proposal-icon">
+                    <div class="proposal-number">3</div>
+                </div>
+                <div class="proposal-content">
+                    <h3 class="proposal-title">Version Three</h3>
+                    <div class="proposal-features">
+                        <ul>
+                            <li>Same updates as version 1, with alternate high-level messaging and hero section</li>
+                            <li>4 In the Wild cards</li>
+                            <li>Additional header and footer photo choices</li>
+                        </ul>
+                    </div>
+                    <div class="proposal-date">Updated: May 8, 2025</div>
+                </div>
+            </a>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <span class="footer-logo">
+                        <img src="../images/logos/logo_horizontal.svg" alt="MiaMilo" height="40" style="filter: invert(1);">
+                    </span>
+                   
+                </div>
+                <!-- Additional footer content could go here -->
+            </div>
+            <div class="copyright">
+                © 2025 MiaMilo Design. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
