@@ -866,3 +866,49 @@ footer {
     text-align: center;
     margin-bottom: 0;
 }
+
+.why-columns {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+}
+.why-col {
+    flex: 1 1 0;
+    min-width: 220px;
+    max-width: 340px;
+    background: none;
+    text-align: center;
+    padding: 0 1rem;
+}
+.why-col svg {
+    margin-bottom: 1.2rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.why-col h3 {
+    font-size: 1.25rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    margin-top: 0;
+}
+.why-col p {
+    font-size: 1.05rem;
+    color: var(--onyx-black);
+    margin-bottom: 0;
+}
+@media (max-width: 992px) {
+    .why-columns {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+    .why-col {
+        max-width: 420px;
+        margin-bottom: 1.5rem;
+    }
+}
