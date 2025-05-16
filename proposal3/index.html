@@ -28,6 +28,7 @@
                     <span></span>
                 </button>
                 <div class="nav-wrapper">
+                    <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
                     <ul class="nav-links">
                         <li><a href="#">DesignStudio</a></li>
                         <li><a href="#">Collars</a></li>
@@ -88,13 +89,13 @@
                 <div class="hero-text">
                     <h1>Designed by You, Crafted By Us</h1>
                     <p class="hero-tagline">The world's first custom dog collar with swappable charms</p>
-                    <div class="hero-buttons">
-                        <a href="#" class="btn btn-primary">Design Your Own</a>
-                        <a href="#" class="btn btn-secondary">Explore Collections</a>
-                    </div>
                 </div>
                 <div class="hero-image">
                     <img src="../images/products/start_aquamarineshine.webp" alt="Stylish dog wearing MiaMilo collar in premium home environment" />
+                </div>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Design Your Own</a>
+                    <a href="#" class="btn btn-secondary">Explore Collections</a>
                 </div>
             </div>
         </div>
@@ -401,6 +402,7 @@
             const languageSelector = document.querySelector('.language-selector');
             const languageModal = document.getElementById('language-modal');
             const languageModalClose = document.querySelector('.language-modal-close');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
 
             menuToggle.addEventListener('click', function() {
                 this.classList.toggle('active');
@@ -447,6 +449,13 @@
                     languageSelector.classList.remove('active');
                     languageModal.classList.remove('active');
                 }
+            });
+
+            // Close mobile menu on X button
+            mobileMenuClose.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                navWrapper.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
     </script>
