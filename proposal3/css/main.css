@@ -627,9 +627,12 @@ nav {
 .color-combo,
 .gallery-card {
     border-radius: 8px;
-    overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+}
+
+.gallery-card {
+    overflow: hidden;
 }
 
 .color-combo:hover,
@@ -651,6 +654,27 @@ nav {
 .color-primary, .color-secondary {
     flex: 1;
     height: 100%;
+}
+
+.leather-swatch {
+    border-radius: 8px 0 0 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.leather-swatch.color-secondary {
+    border-radius: 0 8px 8px 0;
+}
+
+.leather-swatch::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+    pointer-events: none;
 }
 
 /* Consistent Content Spacing */
