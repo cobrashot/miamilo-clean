@@ -429,6 +429,23 @@ nav {
 /* Hero Section */
 .hero {
     background-color: var(--bg-light);
+    position: relative;
+}
+
+.hero-carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-slide {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hero-slide.active {
+    display: block;
+    opacity: 1;
 }
 
 .hero-content {
@@ -472,6 +489,32 @@ nav {
     font-size: 1.3rem;
     margin-bottom: 2rem;
     font-weight: 300;
+}
+
+/* Hero Navigation Dots */
+.hero-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.hero-nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(34, 34, 35, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-nav-dot.active {
+    background-color: var(--onyx-black);
+}
+
+.hero-nav-dot:hover {
+    background-color: rgba(34, 34, 35, 0.6);
 }
 
 /* Featured In Section */

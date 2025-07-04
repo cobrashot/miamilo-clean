@@ -82,18 +82,45 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Designed by You, Crafted By Us</h1>
-                    <p class="hero-tagline">The world's first custom dog collar with swappable charms</p>
-                    <div class="hero-buttons">
-                        <a href="#" class="btn btn-primary">Design Your Own</a>
-                        <a href="#" class="btn btn-secondary">Explore Collections</a>
+            <div class="hero-carousel">
+                <!-- Hero Slide 1 - Original -->
+                <div class="hero-slide active">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1>Designed by You, Crafted By Us</h1>
+                            <p class="hero-tagline">The world's first custom dog collar with swappable charms</p>
+                            <div class="hero-buttons">
+                                <a href="#" class="btn btn-primary">Design Your Own</a>
+                                <a href="#" class="btn btn-secondary">Explore Collections</a>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <img src="../images/products/start_aquamarineshine.webp" alt="Stylish dog wearing MiaMilo collar in premium home environment" />
+                        </div>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <img src="../images/products/start_aquamarineshine.webp" alt="Stylish dog wearing MiaMilo collar in premium home environment" />
+                
+                <!-- Hero Slide 2 - Contest Banner -->
+                <div class="hero-slide">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1>Pawtrait Parade 2025</h1>
+                            <p class="hero-tagline">Join our photography contest for a chance to win $1000. Free Entry!</p>
+                            <div class="hero-buttons">
+                                <a href="#" class="btn btn-primary">Join Now</a>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <img src="../images/photography-contest/pawtrait-banner-resized.PNG" alt="Pawtrait Parade 2025 Photography Contest Banner" />
+                        </div>
+                    </div>
                 </div>
+            </div>
+            
+            <!-- Navigation Dots -->
+            <div class="hero-nav">
+                <button class="hero-nav-dot active" data-slide="0"></button>
+                <button class="hero-nav-dot" data-slide="1"></button>
             </div>
         </div>
     </section>
@@ -567,5 +594,48 @@
             </div>
         </div>
     </footer>
+
+    <!-- Hero Carousel JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.hero-nav-dot');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                const nextIndex = (currentSlide + 1) % slides.length;
+                showSlide(nextIndex);
+            }
+
+            function startAutoRotation() {
+                slideInterval = setInterval(nextSlide, 8000);
+            }
+
+            function stopAutoRotation() {
+                clearInterval(slideInterval);
+            }
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    showSlide(index);
+                    stopAutoRotation();
+                    startAutoRotation();
+                });
+            });
+
+            startAutoRotation();
+        });
+    </script>
 </body>
 </html>
