@@ -390,6 +390,7 @@
         font-size: 2.5rem;
     }
     
+    
     .contest-highlights {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -448,6 +449,7 @@
     .contest-hero .hero-subtitle {
         font-size: 1.1rem;
     }
+    
     
     .contestant-grid {
         grid-template-columns: 1fr;
